@@ -23,7 +23,7 @@ app.all("*", function (req, res, next) {
   else next();
 });
 
-function rumCommand(cmd, args, callback) {
+function rumCommand(cmd, currentPath, args, callback) {
   var child = spawn(cmd, args, {
     cwd: currentPath,
   });
@@ -49,11 +49,23 @@ app.post("/webhook", (req, res) => {
     console.log("Received push event");
     console.log("Pushed branch:", req.body.ref);
     console.log("Commit message:", req.body.head_commit.message);
-    // 在这里编写处理 push 事件的代码
-    rumCommand("sh", [script], function (txt) {
-      console.log(`在${currentPath}目录下执行了脚本${script}`);
-      console.log(txt);
-    });
+    if (req.body.head_commit.message.includes("deploy")) {
+      // 前端重新部署
+      // 在这里编写处理 push 事件的代码
+      rumCommand("sh", [script], function (txt) {
+        console.log(`在${currentPath}目录下执行了脚本${script}`);
+        console.log(txt);
+      });
+    }
+    if (req.body.head_commit.message.includes("back")) {
+      // 前端重新部署
+      // 在这里编写处理 push 事件的代码
+      rumCommand("sh", "../myself/back-end", [script], function (txt) {
+        console.log(`在${"../myself/back-end"}目录下执行了脚本${script}`);
+        console.log(txt);
+      });
+    }
+
     return res.send("OK");
   }
 
