@@ -1,0 +1,16 @@
+{
+  "name": "web-hook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:xiarongjin/web-hook.git",
+  "author": "xiarj <webxrj@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
