@@ -52,7 +52,7 @@ app.post("/webhook", (req, res) => {
     if (req.body.head_commit.message.includes("deploy")) {
       // 前端重新部署
       // 在这里编写处理 push 事件的代码
-      rumCommand("sh", [script], function (txt) {
+      rumCommand("sh", currentPath, [script], function (txt) {
         console.log(`在${currentPath}目录下执行了脚本${script}`);
         console.log(txt);
       });
